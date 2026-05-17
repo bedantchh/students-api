@@ -13,11 +13,16 @@ import (
 
 	"github.com/bedantchh/students-api/internal/config"
 	"github.com/bedantchh/students-api/internal/http/handlers/student"
+	"github.com/bedantchh/students-api/internal/storage/sqlite"
 )
 
 func main() {
 	cfg := config.MustLoad()
-
+	_, err := sqlite.New(cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
+	slog.Info("Storage Initialised", slog.String("env", cfg.Env), slog.String("version", "1.0.0"))
 	router := http.NewServeMux()
 
 	router.HandleFunc("POST /api/students", student.New())
