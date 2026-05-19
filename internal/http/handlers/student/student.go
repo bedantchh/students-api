@@ -39,11 +39,13 @@ func New(storage storage.Storage) http.HandlerFunc {
 		}
 
 		lastId, err := storage.CreateStudent(student.Name, student.Email, student.Age)
+
 		if err != nil {
 			response.WriteJson(w, http.StatusInternalServerError, err)
 			return
 		}
 
+		slog.Info("user created successfully", slog.String("userID", fmt.Sprint(lastId)))
 		response.WriteJson(w, http.StatusCreated, map[string]int64{"id": lastId})
 	}
 }

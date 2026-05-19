@@ -12,7 +12,7 @@ type Sqlite struct {
 }
 
 func (s *Sqlite) CreateStudent(name string, email string, age int) (int64, error) {
-	stmt, err := s.Db.Prepare("INSERT INRO STUDENTS (name,email,age) VALUES (?,?,?)")
+	stmt, err := s.Db.Prepare("INSERT INTO STUDENTS (name,email,age) VALUES (?,?,?)")
 	if err != nil {
 		return 0, err
 	}
